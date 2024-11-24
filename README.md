@@ -10,4 +10,3 @@ Example : FYI is the player name
 Reads data from HighScore.txt
 Allows the user to enter a new player name and their score
 If appropriate, inserts the new player (name and score) in top ten
-Writes the top ten players in a new text file "NewHighScore.txt"
