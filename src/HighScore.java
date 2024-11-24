@@ -52,25 +52,49 @@ public class HighScore {
         }
     }
 
+    public static void WriteTopTen() {
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("NewHighScore.txt"))) {
+            scoresArray[10] = new HighScore("", 0);
+            for (int i = 0; i < 10; i++) {
+                writer.write(scoresArray[i].playerName);
+                writer.newLine();
+                writer.write(String.valueOf(scoresArray[i].score));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("IO Exception");
+        }
+    }
+
     public static void main(String[] args){
         ReadHighScores();
         OutputHighScores();
 
         Scanner keyboard = new Scanner(System.in);
 
-        System.out.println("Enter a 3-character player name: ");
-        String nplayerName = keyboard.next();
-        if(nplayerName.length() != 3){
-            System.out.println("Not a valid player Name");
-        }
+        String nplayerName;
+        int nScore;
+        do {
+            System.out.println("Enter a 3-character player name: ");
+            nplayerName = keyboard.next();
+            if (nplayerName.length() != 3) {
+                System.out.println("Not a valid player Name");
+            }
+        }while (nplayerName.length() != 3);
 
-        System.out.println("Enter player Score: ");
-        int nScore = keyboard.nextInt();
-        if(nScore < 1 || nScore > 100000){
-            System.out.println("Not a valid Score");
-        }
+
+        do {
+            System.out.println("Enter a 3-character player name: ");
+            System.out.println("Enter player Score: ");
+            nScore = keyboard.nextInt();
+            if(nScore < 1 || nScore > 100000){
+                System.out.println("Not a valid Score");
+            }
+        }while (nScore < 1 || nScore > 100000);
+
 
         NewHighScoreList(nplayerName, nScore);
         OutputHighScores();
+        WriteTopTen();
     }
 }
